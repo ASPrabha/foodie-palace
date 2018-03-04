@@ -1,0 +1,58 @@
+<html>
+
+<head>
+  <title>Javascript DOM Manupulaiton</title>
+  <meta name="description" content="">
+  <meta charset="utf-8">
+  <!-- Mobile viewport optimized -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Custom CSS -->
+  <!-- <link href="css/style.css" rel="stylesheet"> -->
+  <!-- Roboto Font -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+</head>
+
+<body>
+  <header id="header">
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">&nbsp;&nbsp;Foodie Palace</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li>
+            <input type="text" id="searchQuery" placeholder="Search for Food /  Restaurant / Cuisine" class="validate" />
+          </li>
+          <li><a id="searchBtn" class="btn-floating btn-small black">
+      <i class="large material-icons">search</i>
+    </a></li>
+          <!-- <button id="searchBtn"
+ type="button"><i class="material-icons">search</i></button></li> -->
+          <li><a href="" id="home-nav">Home</a></li>
+          <li><a href="" id="list-nav">My Restaurant List</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1 class="title" id="pageTitle"></h1>
+    <div id="pageContent">
+      <!-- Modal Structure -->
+      
+    </div>
+  </main>
+  <script src="src/modernizr-2.6.2.min.js"></script>
+  <!-- JQuery JS- Online Version-->
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <!-- If no online access, fallback version of jQuery -->
+  <script>
+  window.$ || document.write('<script src="includes/src/jquery-1.8.2.min.js"><\/script>')
+
+  </script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="dist/bundle.js"></script>
+</body>
+
+</html>

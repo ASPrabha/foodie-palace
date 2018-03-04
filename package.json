@@ -1,0 +1,37 @@
+{
+  "name": "foodie-palace",
+  "version": "1.0.0",
+  "description": "Web application to search for restaurant details and create User's own list of favourite restaurants",
+  "main": "src/index.js",
+  "dependencies": {
+    "eslint": "^4.18.1",
+    "http-server": "^0.11.1",
+    "jquery": "^3.3.1",
+    "material-design-icons": "^3.0.1",
+    "material-ui": "^0.20.0",
+    "npm": "^5.7.1"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.9"
+  },
+  "scripts": {
+    "build": "webpack --watch",
+    "start": "http-server -c-1",
+    "lint": "eslint src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASPrabha/foodie-palace.git"
+  },
+  "author": "Arokia Selva Prabha <kasprabha02@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ASPrabha/foodie-palace/issues"
+  },
+  "homepage": "https://github.com/ASPrabha/foodie-palace#readme",
+  "keywords": []
+}
