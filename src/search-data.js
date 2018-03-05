@@ -1,15 +1,15 @@
 import { contentTitle } from './my-keys';
-import viewRestaurant from './restaurant-details';
+import viewRestaurantController from './restaurant-details';
 import addToCollection from './addCollection';
 import $ from "jquery";
 
 
 export default function searchDataController(contentArea, API_KEY, searchQry) {
-	getSearchData();  
+  getSearchData(contentArea, API_KEY, searchQry);
 }
 
-function getSearchData(){
-	const myHeaders = new Headers();
+function getSearchData(contentArea, API_KEY, searchQry) {
+  const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
   myHeaders.append('user-key', API_KEY);
   const initObject = {
@@ -21,44 +21,46 @@ function getSearchData(){
     .then(result => result.json())
     .then((result) => {
       const searchArray = result.restaurants;
-      searchDataView(contentArea, searchArray);
+      searchDataView(contentArea, searchArray, searchQry);
     })
     .catch((err) => {
       console.log(err);
     });
 }
 
-function searchDataView(contentArea, searchArray){
+function searchDataView(contentArea, searchArray, searchQry) {
   let placeHolder = 'http://via.placeholder.com/350x150';
   contentArea.html('');
   contentTitle.html('Search results for ' + searchQry.val());
 
-	for (let i = 0; i < searchArray.length; i += 3) {
-        let row = $('<div>', { 'class': 'row' }).appendTo(contentArea);
-        for (let j = 0; j < 3; j += 1) {
-          if (searchArray[i]) {
-            let column = $('<div>', { 'class': 'col s12 m4' }).appendTo(row);
-            let card = $('<div>', { 'class': 'card' }).appendTo(column);
-            let cardImage = $('<div>', { 'class': 'card-image' }).appendTo(card);
-            if (searchArray[i + j].restaurant.thumb) {
-              let image = $('<img>', { src: searchArray[i + j].restaurant.thumb, alt: searchArray[i + j].restaurant.name, 'class': 'responsive-img', height: '200px' }).appendTo(cardImage);
-            } else {
-              let image = $('<img>', { src: placeHolder, alt: searchArray[i + j].restaurant.name, 'class': 'responsive-img', height: '200px' }).appendTo(cardImage);
-            }
-            let cardContent = $('<div>', { 'class': 'card-content' }).appendTo(card);
-            $('<span>', { 'class': 'card-title activator grey-text text-darken-4', html: searchArray[i + j].restaurant.name }).appendTo(cardContent);
-            $('<p>', { html: 'Average Cost for two: ' + searchArray[i + j].restaurant.currency + ' ' + searchArray[i + j].restaurant.average_cost_for_two }).appendTo(cardContent);
-            $('<p>', { html: 'Cuisines : ' + searchArray[i + j].restaurant.cuisines }).appendTo(cardContent);
-            $('<p>', { html: searchArray[i + j].restaurant.user_rating.rating_text + '<span class="badge>"' + searchArray[i + j].restaurant.user_rating.aggregate_rating + '</span>' }).appendTo(cardContent);
-
-            let cardAction = $('<div>', { 'class': 'card-action' }).appendTo(card);
-
-            let viewRes = $('<a>', { html: 'View Restaurant' }).appendTo(cardAction);
-            let addRes = $('<a>', { html: 'Add to Favourites' }).appendTo(cardAction);
-
-            viewRes.bind('click', () => { viewRestaurantController(event, searchArray[i + j].restaurant.R.res_id) });
-            addRes.bind('click', () => { addToCollection(event, searchArray[i + j].restaurant); });
-          }
+  for (let i = 0; i < searchArray.length; i += 3) {
+    let row = $('<div>', { 'class': 'row' }).appendTo(contentArea);
+    for (let j = 0; j < 3; j += 1) {
+      if (searchArray[i]) {
+        let column = $('<div>', { 'class': 'col s12 m4' }).appendTo(row);
+        let card = $('<div>', { 'class': 'card' }).appendTo(column);
+        let cardImage = $('<div>', { 'class': 'card-image' }).appendTo(card);
+        if (searchArray[i + j].restaurant.thumb) {
+          let image = $('<img>', { src: searchArray[i + j].restaurant.thumb, alt: searchArray[i + j].restaurant.name, 'class': 'responsive-img', height: '200px' }).appendTo(cardImage);
+        } else {
+          let image = $('<img>', { src: placeHolder, alt: searchArray[i + j].restaurant.name, 'class': 'responsive-img', height: '200px' }).appendTo(cardImage);
         }
+        let cardContent = $('<div>', { 'class': 'card-content' }).appendTo(card);
+        $('<span>', { 'class': 'card-title activator grey-text text-darken-4', html: searchArray[i + j].restaurant.name }).appendTo(cardContent);
+        $('<address>', { html: searchArray[i + j].restaurant.location.address }).appendTo(cardContent);
+        $('<p>', { html: 'Average Cost for two: ' + searchArray[i + j].restaurant.currency + ' ' + searchArray[i + j].restaurant.average_cost_for_two }).appendTo(cardContent);
+        $('<p>', { html: 'Cuisines : ' + searchArray[i + j].restaurant.cuisines }).appendTo(cardContent);
+        $('<p>', { html: searchArray[i + j].restaurant.user_rating.rating_text + '<span class="badge>"' + searchArray[i + j].restaurant.user_rating.aggregate_rating + '</span>' }).appendTo(cardContent);
+
+        let cardAction = $('<div>', { 'class': 'card-action' }).appendTo(card);
+
+        let viewRes = $('<a>', { html: 'View Restaurant' }).appendTo(cardAction);
+        let addRes = $('<a>', { html: 'Add to Favourites' }).appendTo(cardAction);
+
+        viewRes.bind('click', () => { viewRestaurantController(event, searchArray[i + j].restaurant.R.res_id) });
+        addRes.bind('click', () => { addToCollection(event, searchArray[i + j].restaurant); });
       }
+    }
+  }
+
 }

@@ -36,22 +36,17 @@ export function addToExistingCollection(event, collection) {
   });
 }
 
-export function editCollection(collName) {
-  ('You clicked edit ' + collName);
-
+export function editCollection(newName, collIndex) {
+  console.log(applicationState.userCollection[collIndex]);
+  applicationState.userCollection[collIndex].collectionName = newName;
 
 }
 
 export function deleteCollection(index) {
   let conf = confirm('Do you wanna delete your collection?');
   if (conf) {
-    // applicationState.userCollection.forEach(element => {
-      // if (element.collectionName === collName) {
-        applicationState.userCollection.splice(index, 1);
-      // }
-    // });
+    applicationState.userCollection.splice(index, 1);
   }
-
 }
 
 export function deleteRestaurant(collName, resName) {

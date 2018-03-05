@@ -27,3 +27,20 @@ export default function getCity() {
       console.log(err);
     });
 }
+
+,
+    plugins: [
+  new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery'",
+      "window.$": "jquery"
+  })
+],
+      resolve: {
+        alias: {
+          "jquery-ui": "jquery-ui.min.js",
+          // bind to modules;
+          modules: path.join(__dirname, "node_modules")
+        }
+      },

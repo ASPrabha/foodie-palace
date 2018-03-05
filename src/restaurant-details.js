@@ -4,10 +4,10 @@ import addToCollection from './addCollection';
 
 export default function viewRestaurantController(event, restId) {
   event.preventDefault();
-  getSearchData()
+  getSearchData(restId)
 }
 
-function getRestaurantData(){
+function getRestaurantData(restId){
 	const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
   myHeaders.append('user-key', API_KEY);

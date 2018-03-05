@@ -1,20 +1,13 @@
 import { contentArea, contentTitle, applicationState } from "./my-keys"
-import { createCollection, addCollection, addToExistingCollection, editCollection, deleteCollection} from "./collectionActions"
+import { createCollection, addCollection, addToExistingCollection, editCollection, deleteCollection, deleteRestaurant } from "./collectionActions"
 import $ from "jquery";
+import 'jquery-ui/ui/widgets/sortable';
+import 'jquery-ui/ui/disable-selection';
 
 export default function myFavourites(event) {
   event.preventDefault();
   contentTitle.html('Favourite Restaurants');
   contentArea.html('');
-  $(`<div id="modal1" class="modal">
-        <div class="modal-content">
-          <h4>Modal Header</h4>
-          <p>A bunch of text</p>
-        </div>
-        <div class="modal-footer">
-          <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
-      </div>`).appendTo(contentArea);
 
   if (applicationState.userCollection[0]) {
     let row = $('<div>', { 'class': 'row' }).appendTo(contentArea);
@@ -32,16 +25,28 @@ export default function myFavourites(event) {
     applicationState.userCollection.forEach(collection => {
       let collectionData = $('<li>', { 'class': 'collection-item', html: collection.collectionName }).appendTo(collectionList);
       // Displaying the action list for the collection
-      let actions = $('<span>', { 'class': 'right' }).appendTo(collectionData);
-
-      let edit = $('<a>', { href : '#modal1'}).appendTo(actions);
-      edit.css('text-decoration', none);
-      $('<i>', { 'class': 'material-icons', html: 'edit' }).appendTo(edit);
-
-      // edit.bind('click', () => {
-      //   editCollection(collection.collectionName, applicationState.userCollection.indexOf(collection));
-      //   myFavourites(event);
-      // });
+      let actions = $('<span>', { 'class' : 'right' }).appendTo(collectionData);
+      let edit = $('<i>', { 'class': 'material-icons', html: 'edit' }).appendTo(actions);
+      edit.css('cursor', 'pointer');
+      edit.bind('click', () => {
+        console.log('inside edit');
+        collectionData.html('');
+        let changeCollName = $('<div>', { 'class': 'row' });
+        collectionData.html(changeCollName);
+        let inputCol = $('<div>', { 'class': 'input-field col s6' }).appendTo(collectionData);
+        let changeInput = $('<input>', { value: collection.collectionName, 'class': 'validate' }).appendTo(inputCol);
+        let change = $('<i>', { 'class': 'material-icons', html: 'check' }).appendTo(inputCol);
+        change.css('cursor', 'pointer');
+        change.bind('click', () => {
+          editCollection(changeInput.val(), applicationState.userCollection.indexOf(collection));
+          myFavourites(event);
+        });
+        let noChange = $('<i>', { 'class': 'material-icons', html: 'clear' }).appendTo(inputCol);
+        noChange.css('cursor', 'pointer');
+        noChange.bind('click', () => {
+          myFavourites(event);
+        });
+      });
 
       let del = $('<i>', { 'class': 'material-icons', html: 'delete' }).appendTo(actions);
       del.css('cursor', 'pointer');
@@ -53,8 +58,11 @@ export default function myFavourites(event) {
       // Displaying the restaurants inide the collections
       if (collection.restaurantList[0]) {
         let restaurants = $('<ul>', { 'class': 'collection' }).appendTo(collectionData);
+        restaurants.sortable(
+        	);
+        restaurants.disableSelection();
         collection.restaurantList.forEach(restaurant => {
-          let rest = $('<li>', { 'class': 'collection-item', html: restaurant.name }).appendTo(restaurants);
+          let rest = $('<li>', { 'class': 'collection-item ui-state-default', html: restaurant.name }).appendTo(restaurants);
           let actionRes = $('<span>', { 'class': 'right' }).appendTo(rest);
           let delRes = $('<i>', { 'class': 'material-icons', html: 'delete' }).appendTo(actionRes);
           delRes.css('cursor', 'pointer');
@@ -77,6 +85,3 @@ export default function myFavourites(event) {
     createCollection();
   }
 }
-
-
-
