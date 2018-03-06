@@ -4,24 +4,25 @@
   "description": "Web application to search for restaurant details and create User's own list of favourite restaurants",
   "main": "src/index.js",
   "dependencies": {
-    "eslint": "^4.18.1",
     "http-server": "^0.11.1",
-    "jquery": "^3.3.1",
+    "jquery": "^2.1.4",
     "jquery-ui": "^1.12.1",
     "material-design-icons": "^3.0.1",
-    "material-ui": "^0.20.0",
-    "npm": "^5.7.1",
+    "materialize-css": "^0.100.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "html-webpack-plugin": "^3.0.4",
     "webpack": "^4.1.0",
     "webpack-cli": "^2.0.10",
     "webpack-dev-server": "^3.1.0"
   },
-  "devDependencies": {
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.9.0"
-  },
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack-dev-server --content-base src/ --watch-content-base",
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "webpack -p",
+    "dev": "webpack-dev-server",
     "start": "http-server -c-1",
     "lint": "eslint src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
